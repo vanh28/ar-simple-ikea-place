@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         modelNode = ArModelNode(sceneView.engine,PlacementMode.INSTANT).apply {
             loadModelGlbAsync(
-                glbFileLocation = "models/dog.glb",
+                glbFileLocation = "models/sofa.glb",
                 scaleToUnits = 1f,
                 centerOrigin = Position(-0.5f)
             )
