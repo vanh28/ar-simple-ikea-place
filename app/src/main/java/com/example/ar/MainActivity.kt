@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             loadModelGlbAsync(
                 glbFileLocation = "models/dog.glb",
                 scaleToUnits = 1f,
-                centerOrigin = Position(-0.5f
+                centerOrigin = Position(-0.5f)
             )
             {
                 sceneView.planeRenderer.isVisible = true
