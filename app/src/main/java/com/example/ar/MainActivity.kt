@@ -16,10 +16,10 @@ import io.github.sceneview.node.VideoNode
 class MainActivity : AppCompatActivity() {
 
     private lateinit var sceneView: ArSceneView
+
     lateinit var placeButton: ExtendedFloatingActionButton
+
     private lateinit var modelNode: ArModelNode
-    private lateinit var videoNode: VideoNode
-    private lateinit var mediaPlayer:MediaPlayer
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,25 +30,18 @@ class MainActivity : AppCompatActivity() {
             this.lightEstimationMode = Config.LightEstimationMode.DISABLED
         }
 
-        mediaPlayer = MediaPlayer.create(this,R.raw.mtp)
-
         placeButton = findViewById(R.id.place)
 
         placeButton.setOnClickListener {
             placeModel()
         }
 
-        videoNode = VideoNode(sceneView.engine, scaleToUnits = 0.7f, centerOrigin = Position(y=-4f), glbFileLocation = "models/plane.glb", player = mediaPlayer, onLoaded = {_,_ ->
-            mediaPlayer.start()
-        })
-
-        modelNode = ArModelNode(sceneView.engine,PlacementMode.INSTANT).apply {
+        modelNode = ArModelNode(sceneView.engine, PlacementMode.INSTANT).apply {
             loadModelGlbAsync(
-                glbFileLocation = "models/sofa.glb",
-                scaleToUnits = 1f,
+                glbFileLocation = "models/chair.glb",
+                scaleToUnits = 0.9  f,
                 centerOrigin = Position(-0.5f)
-            )
-            {
+            ) {
                 sceneView.planeRenderer.isVisible = true
                 val materialInstance = it.materialInstances[0]
             }
@@ -58,21 +51,18 @@ class MainActivity : AppCompatActivity() {
 
         }
         sceneView.addChild(modelNode)
-        modelNode.addChild(videoNode)
-
     }
 
-    private fun placeModel(){
+    private fun placeModel() {
         modelNode.anchor()
-
         sceneView.planeRenderer.isVisible = false
-
     }
 
     override fun onPause() {
         super.onPause()
         mediaPlayer.stop()
     }
+
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer.release()
